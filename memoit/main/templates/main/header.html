@@ -1,0 +1,49 @@
+<head>
+    {% load static %}
+    {% load staticfiles %}
+    <link href="{% static 'main/css/style.css' %}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>Memo IT</title>
+    <link rel="shortcut icon" href="/static/main/favicon.ico" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+
+    <style>
+        body {
+            background-image: url("{% static '/main/images/white-waves.png'%}");;
+        }
+    </style>
+</head>
+
+<body>
+
+{% include "main/includes/navbar.html" %}
+{% include "main/includes/messages.html" %}
+<main>
+    <div class="container col s12">
+        {% block content %}
+        {% endblock %}
+    </div>
+</main>
+<script>
+    // initialize header
+    M.AutoInit();
+    $(document).ready(function () {
+        $('.sidenav').sidenav();
+    });
+    $('textarea').each(function () {
+        this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+    }).on('input', function () {
+        this.style.height = 'auto';
+        this.style.height = (this.scrollHeight) + 'px';
+    });
+
+</script>
+</body>
+

@@ -1,0 +1,161 @@
+.card-content{
+        -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+#start-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 300px;
+    width: 500px;
+    margin: -150px 0 0 -250px;
+    font-family: 'Indie Flower', cursive;
+    color: white;
+    font-size: 100px;
+    text-align: center;
+}
+div.help-box {
+    font-size: 20px !important;
+}
+#help-button{
+    font-size: 30px; !important;
+    color: black;
+}
+.nav-logo{
+    font-family: 'Indie Flower', cursive; !important;
+    padding-left: 1%; !important;
+}
+#logo{
+    padding-left: auto;
+    padding-right: auto;
+}
+
+.start-btn {
+    display: inline-block;
+}
+
+.container {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.modal-content {
+    color: black;
+}
+
+.card-hover{
+    transition: all .2s ease-in-out;
+    position: relative;
+    z-index: 1;
+}
+.card-hover:hover{
+    transform: scale(1.05);
+    z-index: 2;
+}
+
+.fieldWrapper{
+    padding-top: 10px;
+}
+
+.table-action{
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.card-image{
+    width:inherit;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+main {
+    flex: 1 0 auto;
+  }
+ .account-page-hover{
+     transition: all .2s ease-in-out;
+ }
+ .account-page-hover:hover{
+     transform: scale(1.05);
+ }
+ .account-other{
+     padding-bottom: 10%;
+ }
+form > p{
+    padding-bottom: 10px;
+}
+.card-action > button{
+    bottom: 10px;
+}
+
+#to-do-list{
+
+}
+
+.dotted-list > li{
+    list-style-type: circle !important;
+}
+
+.add-space{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.to-do-item{
+    overflow: hidden;
+    min-width: 100%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+
+}
+.list-item-text{
+    width: 80% !important;
+    word-wrap: break-word;
+    padding-right: 15px;
+    padding-left: 5px;
+}
+
+#start-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    min-height: 100%;
+    color: #fff;
+    background: linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB);
+    background: -moz-linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB);
+    background-size: 400% 400%;
+    -webkit-animation: Gradient 15s ease infinite;
+    -moz-animation: Gradient 15s ease infinite;
+    animation: Gradient 15s ease infinite;
+}
+
+@-webkit-keyframes Gradient {
+    0% {
+        background-position: 0% 50%
+    }
+    50% {
+        background-position: 100% 50%
+    }
+    100% {
+        background-position: 0% 50%
+    }
+}
+
+@keyframes Gradient {
+    0% {
+        background-position: 0% 50%
+    }
+    50% {
+        background-position: 100% 50%
+    }
+    100% {
+        background-position: 0% 50%
+    }
+}
+

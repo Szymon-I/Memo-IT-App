@@ -1,0 +1,117 @@
+{% extends "main/header.html" %}
+
+{% block content %}
+
+    <div class="row col s12">
+    <div style="padding-top: 50px;">
+
+    {% if theme == 1 %}
+        <div class="card col s12 l6 offset-l3 m8 offset-m2 blue-grey darken-1 z-depth-5">
+    {% elif theme == 2 %}
+        <div class="card col s12 l6 offset-l3 m8 offset-m2 cyan lighten-2 z-depth-5">
+    {% elif theme == 3 %}
+        <div class="card col s12 l6 offset-l3 m8 offset-m2 green accent-4 z-depth-5">
+    {% elif theme == 4 %}
+        <div class="card col s12 l6 offset-l3 m8 offset-m2 amber accent-3 z-depth-5">
+    {% elif theme == 5 %}
+        <div class="card col s12 l6 offset-l3 m8 offset-m2 purple lighten-2 z-depth-5">
+    {% elif theme == 6 %}
+        <div class="card col s12 l6 offset-l3 m8 offset-m2 red lighten-1 z-depth-5">
+    {% endif %}
+
+
+
+
+
+<div class="card-content">
+    {% if note_type == '1' %}
+        <span class="card-title white-text"> Edit Note</span>
+    {% elif note_type == '2' %}
+        <span class="card-title white-text"> Edit List Note</span>
+    {% elif note_type == '3' %}
+        <span class="card-title white-text"> Edit Picture Note</span>
+    {% endif %}
+
+    <div class="card-panel blue lighten-5">
+        <form method="post" enctype="multipart/form-data" style="word-wrap: break-word;">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="card-action">
+                <button class="btn waves-effect waves-light blue lighten-2 col s12" type="submit"
+                        name="action" style="left: 0%;">
+                    Update <i class="material-icons right">send</i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+</div>
+</div>
+    {% if note_type == '2' %}
+        <script>
+            $("#id_content").css("visibility", "hidden");
+
+            $(document).ready(function () {
+                /* hide content for note list on loading time */
+                $("#id_content").parent().append("<ul id='to-do-list'></ul>");
+                $("form").submit(function (event) {
+                    let list_values = $.map($("#to-do-list li span"), function (elem, index) {
+                        return $(elem).text();
+                    }).join("|");
+                    $("#id_content").val(list_values);
+                    $("#id_content").css("visibility", "visible");
+                    console.log(list_values);
+                });
+
+                // for every element in list in textbox
+                // parse string to list and fill note
+                let input_array = $("#id_content").val().split("|");
+                console.log(input_array);
+                for (let i = 0; i < input_array.length; i++) {
+
+                    $("#to-do-list").append("<li class='to-do-item valign-wrapper'>" + "<span class='list-item-text left'>" + input_array[i] + "</span>" +
+                        " <a class='waves-effect waves-light btn delete-list-item right blue lighten-2 z-depth-1'><i class='material-icons'>delete</i></a>" +
+                        "</li>");
+                    $("#id_content").val("");
+
+                    $(".delete-list-item").click(function () {
+                        $(this).parent().remove();
+                    });
+
+                }
+                $("#id_content").css("visibility", "visible");
+                $("#id_content").focus();
+            });
+            // add new entry with 'enter' key
+            $('form input').keydown(function (e) {
+                if (e.keyCode == 13) {
+                    let inputs = $(this).parents("form").eq(0).find(":input");
+                    if (inputs[inputs.index(this) + 1] != null) {
+                        inputs[inputs.index(this) + 1].focus();
+                    }
+                    let newListItem = $("#id_content").val();
+                    if (newListItem.length > 0) {
+                        $("#to-do-list").append("<li class='to-do-item valign-wrapper'>" + "<span class='list-item-text left'>" + newListItem + "</span>" +
+                            " <a class='waves-effect waves-light btn delete-list-item right blue lighten-2 z-depth-1'><i class='material-icons'>delete</i></a>" +
+                            "</li>");
+                        $("#id_content").val("");
+                    }
+                    e.preventDefault();
+                    $(".delete-list-item").click(function () {
+                        $(this).parent().remove();
+                    });
+                    $("#id_content").focus();
+                    return false;
+                }
+            });
+        </script>
+    {% endif %}
+
+    {% if note_type == '3' %}
+        <script>
+            $("label[for='id_picture']").append("<br>");
+        </script>
+
+    {% endif %}
+{% endblock %}

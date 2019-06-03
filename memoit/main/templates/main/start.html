@@ -1,0 +1,79 @@
+<head>
+    {% load static %}
+    <link href="{% static 'main/css/style.css' %}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>Memo IT</title>
+    {#    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>#}
+    <link rel="shortcut icon" href="/static/main/favicon.ico" />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+</head>
+<body>
+{% include "main/includes/messages.html" %}
+
+<div id="start-background" class="col s12">
+
+    <div id="start-box">
+        <span id="logo"></span>
+        <br>
+        <a href="#popup" class="btn waves-effect waves-light blue lighten-2 start-btn modal-trigger"
+           style="font-family: Segoe UI; display: none;">
+            Start
+        </a>
+    </div>
+    <div id="popup" class="modal">
+        <div class="modal-content">
+            <h4>What's Memo IT?</h4>
+            <p>
+                Memo IT is a web application that allows you to store your memos in cloud, wherever you are.
+                <br>
+                In order to store data in cloud, you need a Memo account.
+            </p>
+        </div>
+        <div class="modal-footer">
+            <a href="/login" class="modal-close waves-effect waves-green btn-flat">Login</a>
+            <a href="/register" class="modal-close waves-effect waves-green btn-flat">Register</a>
+        </div>
+    </div>
+</div>
+<div class="fixed-action-btn">
+    <a id="pulse-button" class="waves-effect waves-light btn-floating btn-large red btn tooltipped pulse" href="/help"
+       data-position="left" data-tooltip="Help">
+        <span style="font-size: 40px">?</span>
+    </a>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        // init hover-button
+        $("#pulse-button").hover(function () {
+            $("#pulse-button").removeClass("pulse");
+        },);
+        $('.modal').modal();
+        $('.fixed-action-btn').floatingActionButton();
+        $('.tooltipped').tooltip();
+
+        // animate logo on startup with setInterval
+        const logo_text = "Memo-It";
+        let logo_count = 0;
+        let typing = setInterval(function () {
+            if (logo_count < logo_text.length) {
+                $("#logo").text(logo_text.substring(0, logo_count + 1));
+                logo_count++;
+            } else {
+                $("a").show();
+                clearInterval(typing);
+            }
+        }, 250);
+    })
+</script>
+</body>
+

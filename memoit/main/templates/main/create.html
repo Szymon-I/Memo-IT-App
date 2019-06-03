@@ -1,0 +1,72 @@
+{% extends "main/header.html" %}
+
+{% block content %}
+
+    <div class="row">
+        <div style="padding-top: 50px;">
+            <div class="card blue lighten-3 col s12 l6 offset-l3 m8 offset-m2 z-depth-5">
+                <div class="card-content">
+                    {% if note_type == '1' %}
+                        <span class="card-title white-text"> Create Note</span>
+                    {% elif note_type == '2' %}
+                        <span class="card-title white-text"> Create List Note</span>
+                    {% elif note_type == '3' %}
+                        <span class="card-title white-text"> Create Picture Note</span>
+                    {% endif %}
+                    <div class="card-panel blue lighten-5">
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <div class="card-action">
+                                <button class="btn waves-effect waves-light blue lighten-2 col s12" type="submit"
+                                        name="action" style="left: 0%;">
+                                    Create <i class="material-icons right">send</i></button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if note_type == '2' %}
+        <script>
+            $(document).ready(function () {
+                // hide content for note list on loading time
+                $("#id_content").parent().append("<ul id='to-do-list'></ul>");
+                $("form").submit(function (event) {
+                    $("#id_content").css("visibility","hidden");
+                    let list_values = $.map($("#to-do-list li span"), function (elem, index) {
+                        return $(elem).text();
+                    }).join("|");
+                    $("#id_content").val(list_values);
+                    console.log(list_values);
+                });
+            });
+
+            // add new entry with 'enter' key
+            $('form input').keydown(function (e) {
+                if (e.keyCode == 13) {
+                    let inputs = $(this).parents("form").eq(0).find(":input");
+                    if (inputs[inputs.index(this) + 1] != null) {
+                        inputs[inputs.index(this) + 1].focus();
+                    }
+                    let newListItem = $("#id_content").val();
+                    if (newListItem.length > 0) {
+                        $("#to-do-list").append("<li class='to-do-item valign-wrapper'>" + "<span class='list-item-text left'>" + newListItem + "</span>" +
+                            " <a class='waves-effect waves-light btn delete-list-item right blue lighten-2 z-depth-1'><i class='material-icons'>delete</i></a>" +
+                            "</li>");
+                        $("#id_content").val("");
+                    }
+                    e.preventDefault();
+                    $(".delete-list-item").click(function () {
+                        $(this).parent().remove();
+                    });
+                    $("#id_content").focus();
+                    return false;
+                }
+            });
+        </script>
+    {% endif %}
+{% endblock %}

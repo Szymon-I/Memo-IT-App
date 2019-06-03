@@ -1,0 +1,130 @@
+{% extends "main/header.html" %}
+{% block content %}
+    <div class="account-header col s12">
+    </div>
+
+    {% if lengths.3 != 0 %}
+        <div class="account-content col s12">
+            <h3>Notes table:</h3><br>
+            <table>
+                <thead>
+                <tr>
+                    <th>Note Title</th>
+                    <th class="hide-on-small-only">Note type</th>
+                    <th class="hide-on-small-only">Published</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for note in NotesAll %}
+                    <tr>
+                        <td>{{ note.title }}</td>
+                        <td class="hide-on-small-only">
+                            {% if note.type == 1 %} Note
+                            {% elif note.type == 2 %} List Note
+                            {% elif note.type == 3 %} Picture Note
+                            {% endif %}
+                        </td>
+                        <td class="hide-on-small-only">
+                            {{ note.published }}
+                        </td>
+                        <td class="table-action">
+                            <a class='modal-trigger white-text waves-effect waves-light btn blue lighten-2 z-depth-1 account-page-hover'
+                               href='#modal{{ forloop.counter }}'>Delete</a>
+                            <a class="white-text waves-effect waves-light btn blue lighten-2 z-depth-1 account-page-hover"
+                               href="/update/account/{{ note.type }}/{{ note.id }}">Edit</a>
+                        </td>
+                    </tr>
+
+                    <div id='modal{{ forloop.counter }}' class='modal col s12 m4 offset-m2 offset-l2'>
+                        <div class="modal-content ">
+                            <h4>Delete</h4>
+                            <p>
+                                Do you really want to delete this note?
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="/delete/account/{{ note.type }}/{{ note.id }}"
+                               class="modal-close waves-effect waves-green btn-flat">Agree</a>
+                        </div>
+                    </div>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <h4>You have no notes to display</h4>
+    {% endif %}
+
+
+    <div class="account-other">
+        <div id='modal0' class='modal col s12 m4 offset-m2 offset-l2'>
+            <div class="modal-content ">
+                <h4>Delete</h4>
+                <p>
+                    Do you really want to delete your account?
+                    This will permanently delete your account along with all your memos.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <a href="/delete_account" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+            </div>
+        </div>
+
+        <div id='modal' class='modal col s12 m4 offset-m2 offset-l2'>
+            <div class="modal-content">
+                <h4>Delete</h4>
+                <p>
+                    Do you really want to delete all your notes?
+                </p>
+            </div>
+            <div class="modal-footer">
+                <a href="/delete_all" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="page-footer blue lighten-2 z-depth-3  col s12">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">{{ user.username }}</h5>
+                    <p class="grey-text text-lighten-4">On this page you can manage your memos in table mode and change
+                        you account details or even delete it.
+                    </p>
+                    <br>
+                    <p>
+                        <a href="/help" class="white-text text-lighten-4"><h5>Help</h5></a>
+                    </p>
+                </div>
+                <div class="col l4 offset-l2 s12">
+                    <h5 class="white-text">Note summary:</h5>
+                    <ul>
+                        <li>Notes: {{ lengths.0 }} </li>
+                        <li>List notes: {{ lengths.1 }} </li>
+                        <li>Picture notes: {{ lengths.2 }} </li>
+                        <li>Notes in all: {{ lengths.3 }} </li>
+                    </ul>
+                    <a class="modal-trigger white-text text-lighten-4 account-page-hover left"
+                               href="#modal">
+                           <h6>Delete all notes</h6>
+                        </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container">
+                © 2019 Memo IT
+                <a class="modal-trigger white-text text-lighten-4 right account-page-hover" href="#modal0">
+                    {% if user.is_superuser %}
+                        Delete account (superuser)
+                    {% else %}
+                        Delete account
+                    {% endif %}
+                </a>
+            </div>
+        </div>
+    </footer>
+{% endblock %}
