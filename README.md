@@ -22,8 +22,8 @@ You can delete all your notes on single click.
 In footer there is information about your account.
 You can delete your account along with all your notes permanently.
 # Test
-There is a default superuser account i db:
-login: admin
+There is a default superuser account in db:</br>
+login: admin </br>
 password: adminadmin
 
 # Screenshots
