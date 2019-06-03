@@ -37,7 +37,7 @@ password: adminadmin
 ![Screenshot](screenshots/8.PNG)
 ![Screenshot](screenshots/9.PNG)
 ![Screenshot](screenshots/10.jpg)
-![Screenshot](screenshots/11jpg)
+![Screenshot](screenshots/11.jpg)
 ![Screenshot](screenshots/12.jpg)
 ![Screenshot](screenshots/13.jpg)
 ![Screenshot](screenshots/14.jpg)
